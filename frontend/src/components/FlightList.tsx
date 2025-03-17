@@ -2,21 +2,32 @@ import React, { useState, useEffect } from "react";
 import { Flight } from "../types/Flight";
 import { FlightService } from "../services/FlightService";
 
-const FlightList: React.FC = () => {
+interface FlightListProps {
+    flights?: Flight[];
+    isLoading?: boolean;
+}
+
+const FlightList: React.FC<FlightListProps> = ({flights: propFlights, isLoading: propIsLoading}) => {
     // Component logic
     const [flights, setFlights] = useState<Flight[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const fetchFlights = async () => {
-            setIsLoading(true);
-            const data = await FlightService.getAllFlights();
-            setFlights(data);
-            setIsLoading(false);
-        };
+        // If flights 
+        if (propFlights) {
+            setFlights(propFlights);
+            setIsLoading(propIsLoading || false);
+        } else {
+            const fetchFlights = async () => {
+                setIsLoading(true);
+                const data = await FlightService.getAllFlights();
+                setFlights(data);
+                setIsLoading(false);
+            };
 
-        fetchFlights();
-    }, []);
+            fetchFlights();
+        }
+    }, [propFlights, propIsLoading]);
 
     if (isLoading) {
         return <div>Loading flights...</div>
