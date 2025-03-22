@@ -63,8 +63,8 @@ const FlightFilter: React.FC<FlightFilterProps> = ({ onFilterChange, destination
                     <label htmlFor="departureDate">Departure date:</label>
                     <input
                         type="date"
-                        id="derpartureDate"
-                        name="derpartureDate"
+                        id="departureDate"
+                        name="departureDate"
                         value={filters.departureDate || ''}
                         onChange={handleFilterChange}
                     />
