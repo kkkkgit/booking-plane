@@ -13,7 +13,6 @@ const FlightList: React.FC<FlightListProps> = ({flights: propFlights, isLoading:
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        // If flights 
         if (propFlights) {
             setFlights(propFlights);
             setIsLoading(propIsLoading || false);
