@@ -33,6 +33,10 @@ public class SeatService {
         Flight flight = flightRepository.findById(flightId)
                 .orElseThrow(() -> new RuntimeException("flight with id " + flightId + " not found"));
 
+        return generateTakenSeats(flight);
+    }
+
+    public List<SeatEntity> generateTakenSeats(Flight flight) {
         List<SeatEntity> seats = new ArrayList<>();
 
         int rows = 30;
