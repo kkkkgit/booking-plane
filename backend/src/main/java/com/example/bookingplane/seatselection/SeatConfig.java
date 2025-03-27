@@ -31,27 +31,17 @@ public class SeatConfig {
             try {
                 // Get all flights from repository
                 List<Flight> flights = flightRepository.findAll();
+                System.out.println("Found " + flights.size() + " flights for seat initialization");
 
-                if (flights.isEmpty()) {
-                    System.out.println("No flights found to initialize seats for.");
-                    return;
-                }
-
-                System.out.println("Initializing flights for " + flights.size() + " flights.");
-
-                // for each flight, generate seats
                 for (Flight flight : flights) {
-                    try {
-                        if (seatRepository.findByFlightId(flight.getId()).isEmpty()) {
-                            seatService.generateSeatsForFlight(flight.getId(), 15, 6);
-                            System.out.println("Generated seats for flight: " + flight.getId());
-                        } else {
-                            System.out.println("Seats for flight: " + flight.getId() + " already exist.");
+                        Long flightId = flight.getId();
+                        System.out.println("Initializing flight " + flightId);
+
+                        List<Seat> existingSeats = seatRepository.findByFlightId(flightId);
+
+                        if (existingSeats.isEmpty()) {
+                        List<Seat> generatedSeats = seatService.generateSeatsForFlight(flightId, 15, 6);
                         }
-                    } catch (Exception e) {
-                        System.err.println("Error generating seats for flight " + flight.getId() + ": " + e.getMessage());
-                        e.printStackTrace();
-                    }
                 }
             } catch (Exception e) {
                 System.err.println("Error in seat initialization: " + e.getMessage());

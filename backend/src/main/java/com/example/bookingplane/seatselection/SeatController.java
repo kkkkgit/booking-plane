@@ -21,7 +21,10 @@ public class SeatController {
 
     @GetMapping("/flight/{flightId}")
     public List<Seat> getSeatsByFlight(@PathVariable Long flightId) {
-        return seatService.getSeatsByFlight(flightId);
+        System.out.println("Request received for flight " + flightId);
+        List<Seat> seats = seatService.getSeatsByFlight(flightId);
+        System.out.println("Found " + seats.size() + " seats for flight " + flightId);
+        return seats;
     }
 
     @GetMapping("/flight/{flightId}/available")

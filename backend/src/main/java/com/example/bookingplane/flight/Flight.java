@@ -2,6 +2,7 @@ package com.example.bookingplane.flight;
 
 import com.example.bookingplane.seatselection.Seat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 import java.time.*;
@@ -33,6 +34,7 @@ public class Flight {
     private String flightDuration;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Seat> seats;
 
     public Flight() {
