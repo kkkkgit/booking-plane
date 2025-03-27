@@ -1,6 +1,6 @@
 package com.example.bookingplane.flight;
 
-import com.example.bookingplane.seatselection.SeatEntity;
+import com.example.bookingplane.seatselection.Seat;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Flight {
     private String flightDuration;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SeatEntity> seats;
+    private List<Seat> seats;
 
     public Flight() {
     }
@@ -57,12 +57,22 @@ public class Flight {
         this.price = price;
     }
 
-    public List<SeatEntity> getSeats() {
+    public List<Seat> getSeats() {
         return seats;
     }
 
-    public void setSeats(List<SeatEntity> seats) {
+    public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public void addSeat(Seat seat) {
+        seats.add(seat);
+        seat.setFlight(this);
+    }
+
+    public void removeSeat(Seat seat) {
+        seats.remove(seat);
+        seat.setFlight(null);
     }
 
     public int getPrice() {

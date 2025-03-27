@@ -41,7 +41,7 @@ public class SeatConfig {
             // for each flight, generate seats
             for (Flight flight : flights) {
                 if (seatRepository.findByFlightId(flight.getId()).isEmpty()) {
-                    seatService.generateTakenSeats(flight);
+                    seatService.generateSeatsForFlight(flight.getId(), 15, 6);
                     System.out.println("Generated seats for flight: " + flight.getId());
                 } else {
                     System.out.println("Seats for flight: " + flight.getId() +  " already exist.");
