@@ -23,7 +23,7 @@ public class FlightController {
         return flightService.getFlights();
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
         Optional<Flight> flight = flightService.getFlightById(id);
         return flight.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
