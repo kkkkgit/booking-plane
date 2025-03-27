@@ -16,18 +16,28 @@ const BookingPage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchFlight = async () => {
             if (!flightId) return;
 
             setLoading(true);
             try {
                 const flightData = await  FlightService.getFlightById(parseInt(flightId));
-                setFlight(flightData);
+                if (isMounted) {
+                    setFlight(flightData);
+                    setLoading(false);
+                }
             } catch (error) {
                 console.error('Error fetching flight: ', error);
-            } finally {
-                setLoading(false);
+                if (isMounted) setLoading(false);
             }
+        };
+
+        fetchFlight();
+
+        return () => {
+            isMounted = false;
         };
     }, [flightId]);
 

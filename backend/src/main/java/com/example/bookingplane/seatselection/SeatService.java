@@ -88,12 +88,14 @@ public class SeatService {
         List<Seat> recommendedSeats = seatRepository.findSeatsByPreferences(
                 flightId,
                 preferences.isWantsWindowSeat(),
+                preferences.isWantsAisleSeat(),
                 preferences.isWantsExtraLegroom(),
                 preferences.isWantsExitRowSeat()
         );
 
-        if (recommendedSeats.size() < count) {
+        if (recommendedSeats.isEmpty()) {
             recommendedSeats = seatRepository.findByFlightIdAndIsReserved(flightId, false);
+            System.out.println("No seats matched preferences, falling back to " + recommendedSeats.size() + " available seats");
         }
 
         return recommendedSeats.stream().limit(count).toList();

@@ -1,10 +1,11 @@
 package com.example.bookingplane.seatselection;
 
 import com.example.bookingplane.flight.Flight;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "seat")
 public class Seat {
     @Id
     @SequenceGenerator(
@@ -20,6 +21,7 @@ public class Seat {
 
     private String seatNumber; // e.g., "A1", "B3", etc.
     private int row;
+    @Column(name = "\"column\"")
     private String column; // e.g., "A", "B", "C", etc.
 
     private boolean isWindowSeat;
@@ -30,6 +32,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "flight_id")
+    @JsonBackReference
     private Flight flight;
 
     private SeatClass seatClass;

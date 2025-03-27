@@ -23,21 +23,44 @@ const SeatSelection: React.FC<SeatSelectionProps> = ({flight, numberOfPassengers
     });
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchSeats = async () => {
-            setLoading(true);
-
-            let flightSeats = await SeatService.getSeatsByFlight(flight.id);
-
-            if (flightSeats.length === 0) {
-                flightSeats = await SeatService.generateSeatsForFlight(flight.id, 20, 6);
+            if (!flight || !flight.id) {
+                console.error("No flight ID available");
+                return
             }
 
-            setSeats(flightSeats);
-            setLoading(false);
+            setLoading(true);
+
+            try {
+                let flightSeats = await SeatService.getSeatsByFlight(flight.id);
+
+                if (isMounted) {
+                    if (!flightSeats || flightSeats.length === 0) {
+                        console.log("No seats found")
+                        try {
+                            flightSeats = await SeatService.generateSeatsForFlight(flight.id, 20, 6);
+                        } catch (error) {
+                            console.error("Error generating seats: ", error);
+                        }
+                    }
+
+                    setSeats(flightSeats || []);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error("Error fetching seats: ", error);
+                if (isMounted) setLoading(false);
+            }
         };
 
         fetchSeats();
-    }, [flight.id]);
+
+        return () => {
+            isMounted = false;
+        };
+    }, [flight]);
 
     useEffect(() => {
         setSelectedSeatIds([]);

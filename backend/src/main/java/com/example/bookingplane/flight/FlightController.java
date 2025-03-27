@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -38,5 +39,10 @@ public class FlightController {
     public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
         Optional<Flight> flight = flightService.getFlightById(id);
         return flight.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/test")
+    public Map<String, String> testEndpoint() {
+        return Map.of("message", "API is working!");
     }
 }
