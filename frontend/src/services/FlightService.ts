@@ -15,6 +15,17 @@ export const FlightService = {
         }
     },
 
+    getFlightById: async (id: number): Promise<Flight | null> => {
+        try {
+            const response = await axios.get<Flight>(`${API_URL}/flight/${id}`);
+            return response.data
+        } catch (error) {
+            console.error(`Error fetching flight with id ${id}: `, error);
+            return null;
+        }
+    },
+
+
     getFilteredFlights: async (filters: FilterOptions): Promise<Flight[]> => {
         try {
             const allFlights = await FlightService.getAllFlights();
