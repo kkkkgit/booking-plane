@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,17 @@ public class FlightController {
 
     @GetMapping
     public List<Flight> getFlights() {
-        return flightService.getFlights();
+        try {
+            List<Flight> flights = flightService.getFlights();
+            for (Flight flight : flights) {
+                flight.setSeats(new ArrayList<>());
+            }
+            return flights;
+        } catch (Exception e) {
+            System.err.println("Error retrieving flights: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @GetMapping("/{id}")

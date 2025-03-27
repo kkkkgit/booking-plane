@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Calendar.APRIL;
@@ -34,7 +35,12 @@ public class FlightConfig {
                     180
             );
 
+            B505.setSeats(new ArrayList<>());
+            A206.setSeats(new ArrayList<>());
+
             repository.saveAll(List.of(B505, A206));
+
+            System.out.println("Saved flights: " + repository.count());
         };
     }
 }

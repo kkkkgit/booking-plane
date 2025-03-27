@@ -28,24 +28,34 @@ public class SeatConfig {
     @DependsOn("commandLineRunner")
     CommandLineRunner seatInitializer(FlightRepository flightRepository) {
         return args -> {
-            // Get all flights from repository
-            List<Flight> flights = flightRepository.findAll();
+            try {
+                // Get all flights from repository
+                List<Flight> flights = flightRepository.findAll();
 
-            if (flights.isEmpty()) {
-                System.out.println("No flights found to initialize seats for.");
-                return;
-            }
-
-            System.out.println("Initializing flights for " + flights.size() + " flights.");
-
-            // for each flight, generate seats
-            for (Flight flight : flights) {
-                if (seatRepository.findByFlightId(flight.getId()).isEmpty()) {
-                    seatService.generateSeatsForFlight(flight.getId(), 15, 6);
-                    System.out.println("Generated seats for flight: " + flight.getId());
-                } else {
-                    System.out.println("Seats for flight: " + flight.getId() +  " already exist.");
+                if (flights.isEmpty()) {
+                    System.out.println("No flights found to initialize seats for.");
+                    return;
                 }
+
+                System.out.println("Initializing flights for " + flights.size() + " flights.");
+
+                // for each flight, generate seats
+                for (Flight flight : flights) {
+                    try {
+                        if (seatRepository.findByFlightId(flight.getId()).isEmpty()) {
+                            seatService.generateSeatsForFlight(flight.getId(), 15, 6);
+                            System.out.println("Generated seats for flight: " + flight.getId());
+                        } else {
+                            System.out.println("Seats for flight: " + flight.getId() + " already exist.");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error generating seats for flight " + flight.getId() + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error in seat initialization: " + e.getMessage());
+                e.printStackTrace();
             }
         };
     }
