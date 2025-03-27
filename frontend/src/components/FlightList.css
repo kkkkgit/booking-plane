@@ -78,3 +78,19 @@ main {
         flex: 1;
     }
 }
+
+.book-button {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.book-button:hover {
+    background-color: #218838;
+    text-decoration: none;
+    color: white;
+}

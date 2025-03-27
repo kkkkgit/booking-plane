@@ -1,0 +1,135 @@
+.seat-map-container {
+    margin: 20px 0;
+}
+
+.seat-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.seat-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.row-label {
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.column-header {
+    margin-bottom: 10px;
+}
+
+.column-label {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.seat, .seat-spacer {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.seat-spacer {
+    background-color: transparent;
+    cursor: default;
+}
+
+.seat-available {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    color: #212529;
+}
+
+.seat-selected {
+    background-color: #007bff;
+    border: 1px solid #0056b3;
+    color: white;
+}
+
+.seat-reserved {
+    background-color: #6c757d;
+    border: 1px solid #495057;
+    color: #f8f9fa;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.first-class {
+    background-color: #dc3545;
+    color: white;
+}
+
+.business-class {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.economy-class {
+    background-color: #fff;
+    color: #212529;
+}
+
+.window-seat.seat-available {
+    background-color: #e2f0ff;
+}
+
+.aisle-seat.seat-available {
+    background-color: #fff4e6;
+}
+
+.extra-legroom.seat-available {
+    border: 2px dashed #28a745;
+}
+
+.exit-row.seat-available {
+    border: 2px solid #28a745;
+}
+
+.seat-available:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.seat-map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.seat-sample {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}

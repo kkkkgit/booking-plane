@@ -1,9 +1,10 @@
 package com.example.bookingplane.flight;
 
-import jakarta.persistence.*;
+import com.example.bookingplane.seatselection.Seat;
 
+import jakarta.persistence.*;
+import java.util.List;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 
 
 @Entity
@@ -31,6 +32,9 @@ public class Flight {
     @Transient
     private String flightDuration;
 
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats;
+
     public Flight() {
     }
 
@@ -51,6 +55,24 @@ public class Flight {
         this.arrivalDate = arrivalDate;
         this.arrivalTime = arrivalTime;
         this.price = price;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
+    public void addSeat(Seat seat) {
+        seats.add(seat);
+        seat.setFlight(this);
+    }
+
+    public void removeSeat(Seat seat) {
+        seats.remove(seat);
+        seat.setFlight(null);
     }
 
     public int getPrice() {

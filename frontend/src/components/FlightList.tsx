@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Flight } from "../types/Flight";
 import { FlightService } from "../services/FlightService";
+import "./FlightList.css";
 
 interface FlightListProps {
     flights?: Flight[];
@@ -58,6 +60,11 @@ const FlightList: React.FC<FlightListProps> = ({flights: propFlights, isLoading:
                         <td>{new Date(flight.arrivalDate).toLocaleDateString()} {flight.arrivalTime}</td>
                         <td>{flight.flightDuration}</td>
                         <td>{flight.price}</td>
+                        <td>
+                            <Link to={`/booking/${flight.id}`} className="book-button">
+                                Book Now
+                            </Link>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
