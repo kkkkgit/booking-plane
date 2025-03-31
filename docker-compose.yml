@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: flightdb
+      POSTGRES_USER: kristopalmik
+      POSTGRES_PASSWORD: aUp25yt5Z@qa6fJxpL
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - flight-network
+
+  backend:
+    build: ./backend
+    container_name: flight-booking-backend
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/flightdb
+      SPRING_DATASOURCE_USERNAME: kristopalmik
+      SPRING_DATASOURCE_PASSWORD: aUp25yt5Z@qa6fJxpL
+    ports:
+      - "8080:8080"
+    networks:
+      - flight-network
+
+  frontend:
+    build: ./frontend
+    container_name: flight-booking-frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - flight-network
+
+networks:
+  flight-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
