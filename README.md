@@ -9,4 +9,15 @@ PostgresSQL võtsin endale database'ks samast videost, et lihtsustada enda töö
 database ühendatud Spring Boot'iga. Sarnaselt videole tahtsin ka välja arvutada 
 lennuaja. Selle jaoks vaatasin manualit, ning koos Claude abiga sain loogilise koodi valmis.
 
-Command line's kasutada "docker run -p 3000:80 -p 8080:8080 --name flight-app flight-booking-app", et programm käivituks
+## Docker Image
+
+### Download the Docker Image
+Docker Image saab tõmmata selle command'iga:
+
+```bash
+docker pull yourusername/your-image-name:tag
+
+docker run -p 3000:80 -p 8080:8080 --name flight-app flight-booking-app"
+```
+
+Minna leheküljele http://localhost:3000/ peale Docker Image alla tõmbamist.
