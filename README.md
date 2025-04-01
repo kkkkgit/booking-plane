@@ -8,3 +8,5 @@ et kirjutada valmis enda projekt. Flight klassi jaoks sain kasutada üksühele A
 PostgresSQL võtsin endale database'ks samast videost, et lihtsustada enda tööd. Sellega sain ka 
 database ühendatud Spring Boot'iga. Sarnaselt videole tahtsin ka välja arvutada 
 lennuaja. Selle jaoks vaatasin manualit, ning koos Claude abiga sain loogilise koodi valmis.
+
+Command line's kasutada "docker run -p 3000:80 -p 8080:8080 --name flight-app flight-booking-app", et programm käivituks
